@@ -14,6 +14,9 @@ jobs:
       - name: Pull repositorio
         uses: actions/checkout@v4
 
+        -name: Build the docker image
+        run: docker build -t ${{ secrets.DOCKER_HUB_USER }}/calculadora:latest .
+
       - name: Login Docker Hub
         uses: docker/login-action@v3
         with:
