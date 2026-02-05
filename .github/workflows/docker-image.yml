@@ -20,11 +20,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: Build and Push Docker image
+   - name: Build and Push Docker image
         run: |
           TAG=$(date +%s)
           docker build -t luciver06/calculadora:$TAG .
-          docker push luciver06/calculadora:$TAG
           docker tag luciver06/calculadora:$TAG luciver06/calculadora:latest
+          docker push luciver06/calculadora:$TAG
           docker push luciver06/calculadora:latest
     
