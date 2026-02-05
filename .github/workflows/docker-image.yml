@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull repositorio
+        uses: actions/checkout@v4
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        run: |
+          TAG=$(date +%s)
+          docker build -t luciver06/calculadora:$TAG .
+          docker push luciver06/calculadora:$TAG
+          docker tag luciver06/calculadora:$TAG luciver06/calculadora:latest
+          docker push luciver06/calculadora:latest
+    
