@@ -11,16 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v4
+
       - name: Hacer login en Docker
-        uses : docker/login-action@v3
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-        
-      - name: Poner maquina virtual
+      - name: Poner máquina virtual
         uses: docker/setup-qemu-action@v3
 
       - name: Configurar Buildx
@@ -30,7 +29,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USER }} calculadora:latest
+          tags: ${{ secrets.DOCKER_HUB_USER }}/calculadora:latest
           platforms: linux/amd64,linux/arm64
-        
-
